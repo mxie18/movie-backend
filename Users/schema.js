@@ -8,6 +8,9 @@ const UserSchema = new mongoose.Schema(
             enum: ["USER", "ADMIN"],
             default: "USER",
         },
+        moviesLiked: [
+            { ref: "MovieModel", type: mongoose.Schema.Types.ObjectId },
+        ],
     },
     { collection: "users" }
 );

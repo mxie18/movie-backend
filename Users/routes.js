@@ -34,7 +34,7 @@ export default function UserRoutes(app) {
     app.get("/api/users", findAllUsers);
 
     const otherProfile = async (req, res) => {
-        console.log(req.params.userId);
+        // console.log(req.params.userId);
         try {
             const profile = await dao.findUserById(req.params.userId);
             res.json(profile);
@@ -45,11 +45,14 @@ export default function UserRoutes(app) {
     app.get("/api/users/profile/:userId", otherProfile);
 
     const profile = async (req, res) => {
+        // console.log(req.session["currentUser"]);
         const currentUser = req.session["currentUser"];
         if (!currentUser) {
             res.sendStatus(401);
             return;
         }
+
+        // console.log("PROFILE CURRENT", currentUser);
 
         res.json(currentUser);
     };
@@ -64,8 +67,8 @@ export default function UserRoutes(app) {
     const updateUser = async (req, res) => {
         const { userId } = req.params;
         const status = await dao.updateUser(userId, req.body);
-        // const user = await dao.findUserById(userId);
-        // req.session["currentUser"] = user;
+        const user = await dao.findUserById(userId);
+        req.session["currentUser"] = user;
         res.json(status);
     };
     app.put("/api/users/:userId", updateUser);

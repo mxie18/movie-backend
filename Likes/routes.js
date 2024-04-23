@@ -5,7 +5,8 @@ export default function LikesRoutes(app) {
         const currentUser = req.session["currentUser"];
         const movie = req.body;
         const userId = currentUser._id;
-        await dao.userLikesMovie(userId, movie);
+        const updated = await dao.userLikesMovie(userId, movie);
+        req.session["currentUser"] = updated;
         res.send("liked");
     });
 
@@ -13,7 +14,8 @@ export default function LikesRoutes(app) {
         const currentUser = req.session["currentUser"];
         const userId = currentUser._id;
         const movieId = req.params.movieId;
-        await dao.userUnlikesMovie(userId, movieId);
+        const updated = await dao.userUnlikesMovie(userId, movieId);
+        req.session["currentUser"] = updated;
         res.send("unliked");
     });
 

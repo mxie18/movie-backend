@@ -13,6 +13,7 @@ export const userLikesMovie = async (userId, movie) => {
     movieDB.likedBy.push(user._id);
     await user.save();
     await movieDB.save();
+    return user;
 };
 
 export const userUnlikesMovie = async (userId, movieId) => {
@@ -22,6 +23,7 @@ export const userUnlikesMovie = async (userId, movieId) => {
     movie.likedBy = movie.likedBy.filter((id) => !id.equals(user._id));
     await user.save();
     await movie.save();
+    return user;
 };
 
 export const findMoviesLikedByUser = async (userId) => {

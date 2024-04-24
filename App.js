@@ -8,6 +8,7 @@ import UserRoutes from "./Users/routes.js";
 import LikesRoutes from "./Likes/routes.js";
 import FollowRoutes from "./Follow/routes.js";
 import MoviesRoutes from "./Movies/routes.js";
+import ShowsRoutes from "./Shows/routes.js";
 
 const CONNECTION_STRING =
     process.env.DB_CONNECTION_STRING || "mongodb://127.0.0.1:27017/kanbas";
@@ -43,3 +44,4 @@ UserRoutes(app);
 LikesRoutes(app);
 FollowRoutes(app);
 MoviesRoutes(app);
+ShowsRoutes(app);

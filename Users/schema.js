@@ -12,6 +12,9 @@ const UserSchema = new mongoose.Schema(
         moviesLiked: [
             { ref: "MovieModel", type: mongoose.Schema.Types.ObjectId },
         ],
+        showsLiked: [
+            { ref: "ShowModel", type: mongoose.Schema.Types.ObjectId },
+        ],
         followers: [{ ref: "UserModel", type: mongoose.Schema.Types.ObjectId }],
         following: [{ ref: "UserModel", type: mongoose.Schema.Types.ObjectId }],
         address: String,

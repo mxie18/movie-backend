@@ -35,3 +35,21 @@ export const findFollowing = async (userId) => {
     const user = await userModel.findById(userId).populate("following");
     return user.following;
 };
+
+export const removeUserFollows = async (userId) => {
+    const user = await userModel.findById(userId);
+    for (const userId of user.followers) {
+        const otherUser = await userModel.findById(userId);
+        otherUser.following = otherUser.following.filter(
+            (id) => !id.equals(user._id)
+        );
+        await otherUser.save();
+    }
+    for (const userId of user.following) {
+        const otherUser = await userModel.findById(userId);
+        otherUser.followers = otherUser.followers.filter(
+            (id) => !id.equals(user._id)
+        );
+        await otherUser.save();
+    }
+};

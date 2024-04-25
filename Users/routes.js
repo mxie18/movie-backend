@@ -1,4 +1,6 @@
 import * as dao from "./dao.js";
+import * as likesDao from "../Likes/dao.js";
+import * as followDao from "../Follow/dao.js";
 
 export default function UserRoutes(app) {
     const register = async (req, res) => {
@@ -74,6 +76,8 @@ export default function UserRoutes(app) {
     app.put("/api/users/:userId", updateUser);
 
     const deleteUser = async (req, res) => {
+        await likesDao.removeUserLikes(req.params.userId);
+        await followDao.removeUserFollows(req.params.userId);
         const status = await dao.deleteUser(req.params.userId);
         res.json(status);
     };

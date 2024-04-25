@@ -27,6 +27,20 @@ export const userUnlikesMovie = async (userId, movieId) => {
     return user;
 };
 
+export const removeUserLikes = async (userId) => {
+    const user = await userModel.findById(userId);
+    for (const movieId of user.moviesLiked) {
+        const movie = await movieModel.findById(movieId);
+        movie.likedBy = movie.likedBy.filter((id) => !id.equals(user._id));
+        await movie.save();
+    }
+    for (const showId of user.showsLiked) {
+        const show = await showModel.findById(showId);
+        show.likedBy = show.likedBy.filter((id) => !id.equals(user._id));
+        await show.save();
+    }
+};
+
 export const findMoviesLikedByUser = async (userId) => {
     const user = await userModel.findById(userId).populate("moviesLiked");
     return user.moviesLiked;

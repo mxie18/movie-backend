@@ -19,11 +19,9 @@ const app = express();
 app.use(
     cors({
         credentials: true,
-        origin: [process.env.FRONTEND_URL, "https://movie-hub-999.netlify.app"],
+        origin: [process.env.FRONTEND_URL],
     })
 );
-
-console.log(process.env);
 
 const sessionOptions = {
     secret: process.env.SESSION_SECRET,

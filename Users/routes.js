@@ -85,7 +85,7 @@ export default function UserRoutes(app) {
 
     const createUser = async (req, res) => {
         try {
-            console.log(req.body);
+            // console.log(req.body);
             const user = await dao.createUser(req.body);
             res.json(user);
         } catch (err) {

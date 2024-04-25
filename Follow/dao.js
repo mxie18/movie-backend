@@ -14,9 +14,9 @@ export const unfollowUser = async (curUserId, userId) => {
     const curUser = await userModel.findById(curUserId);
     const userToUnfollow = await userModel.findById(userId);
 
-    console.log("cur", curUser);
+    // console.log("cur", curUser);
 
-    console.log("unfollow", userToUnfollow);
+    // console.log("unfollow", userToUnfollow);
     curUser.following = curUser.following.filter((id) => !id.equals(userId));
     userToUnfollow.followers = userToUnfollow.followers.filter(
         (id) => !id.equals(curUserId)

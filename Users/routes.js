@@ -8,9 +8,16 @@ export default function UserRoutes(app) {
         if (user) {
             res.status(400).json({ message: "Username already taken" });
         } else {
-            const currentUser = await dao.createUser(req.body);
-            req.session["currentUser"] = currentUser;
-            res.json(currentUser);
+            if (req.body.username && req.body.password) {
+                const currentUser = await dao.createUser(req.body);
+                req.session["currentUser"] = currentUser;
+                res.json(currentUser);
+            } else {
+                // user or pass is empty string
+                res.status(400).json({
+                    message: "Username and/or password is empty, try again",
+                });
+            }
         }
     };
     app.post("/api/users/register", register);
